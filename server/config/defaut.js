@@ -17,7 +17,7 @@ if (process.env.NODE_ENV === 'dev') {
         useCreateIndex: true
     }
 } else {
-    urlDb = "mongodb+srv://esteban:gmGXktw4Jf7Xbd46@cluster0-jhqfx.mongodb.net/cafe?retryWrites=true&w=majority"
+    urlDb = process.env.MONGO_URI
     optionsDB = {
         useNewUrlParser: true,
         useUnifiedTopology: true
