@@ -24,7 +24,7 @@ app.get('/usuario', function (req, res) {
                     err
                 })
             }
-            Usuario.count({status: true}, (err, conteo) => {
+            Usuario.count(filters, (err, conteo) => {
                 if (err) {
                     return res.status(400).json({
                         ok: false,
