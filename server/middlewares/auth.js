@@ -5,18 +5,26 @@ const exceptions = require('../../commons/exceptions')
 //Verificar token
 let verifyToken = (req, res, next) => {
     let token = req.get('Authorization')
-    jwt.verify(token.split(' ')[1], config.auth.secret, (err, user) => {
-        if (err || !user) {
-            return res.status(401).json({
-                ok: false,
-                code: 5101,
-                message: 'Invalid token'
-            })
-        }
-        // Pass user to req
-        req.user = user
-        next()
-    })
+    if (token) {
+        jwt.verify(token.split(' ')[1], config.auth.secret, (err, user) => {
+            if (err || !user) {
+                return res.status(401).json({
+                    ok: false,
+                    code: 5101,
+                    message: 'Invalid token'
+                })
+            }
+            // Pass user to req
+            req.user = user
+            next()
+        })
+    } else {
+        return res.status(401).json({
+            ok: false,
+            code: 5101,
+            message: 'Invalid token'
+        })
+    }
 }
 
 //Verificar rol
