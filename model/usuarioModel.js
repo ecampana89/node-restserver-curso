@@ -1,10 +1,13 @@
 const moongoose = require('mongoose')
 const uniqueValidator = require('mongoose-unique-validator');
+const constant = require('../commons/constant')
 
 const Schema = moongoose.Schema
 
 let rolesValidos = {
-    values: [ 'ADMIN_ROLE', 'USER_ROLE' ],
+    values: [
+        constant.usuario.role.ADMIN_ROLE,
+        constant.usuario.role.USER_ROLE ],
     message: '{VALUE} no es un rol valido'
 }
 let UsuarioSchema = new Schema({
@@ -14,16 +17,16 @@ let UsuarioSchema = new Schema({
     avatar: {type: String, required: false},
     status: {type: Boolean, default: true},
     google: {type: Boolean, required: false},
-    role: {type: String, default: 'USER_ROLE', enum: rolesValidos}
+    role: {type: String, default: constant.usuario.role.USER_ROLE, enum: rolesValidos}
 })
 
 UsuarioSchema.plugin(uniqueValidator, {message: '{PATH} debe de ser unico'})
 
-UsuarioSchema.methods.toJSON = function() {
+UsuarioSchema.methods.toJSON = function () {
     let user = this
     let userObject = user.toObject()
     userObject.id = userObject._id
-    delete  userObject._id
+    delete userObject._id
     delete userObject.password
     return userObject
 }

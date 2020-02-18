@@ -1,8 +1,7 @@
-const config = require('./config/defaut')
+const config = require('../config/defaut')
 const express = require('express')
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser')
-
 
 const app = express()
 
@@ -10,7 +9,7 @@ app.use(bodyParser.urlencoded({extended: false, limit: '5mb'}))
 app.use(bodyParser.json({limit: '5mb', type: 'application/json'}))
 app.use(bodyParser.text({limit: '1mb', type: 'application/octet-stream'}))
 
-app.use(require('./routes/usuarioRoute'))
+app.use(require('../routes/index'))
 
 app.get('/', function (req, res) {
     const respuesta = {text: "Hola Mundo!"}

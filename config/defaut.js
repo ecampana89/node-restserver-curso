@@ -24,5 +24,10 @@ if (process.env.NODE_ENV === 'dev') {
     }
 }
 
+let auth = {
+    secret: process.env.SEED || 'lacola1234',
+    tokenExpire: 86400
+}
 
-module.exports = {process, urlDb, optionsDB}
+
+module.exports = {process, urlDb, optionsDB, auth}
