@@ -29,5 +29,7 @@ let auth = {
     tokenExpire: 86400
 }
 
+let google_client_id = '1045712713551-35lolnfd6v6v12ssi3srp00bmoc4ml2g.apps.googleusercontent.com'
 
-module.exports = {process, urlDb, optionsDB, auth}
+
+module.exports = {process, urlDb, optionsDB, auth, google_client_id}

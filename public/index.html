@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="widt=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login</title>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="1045712713551-35lolnfd6v6v12ssi3srp00bmoc4ml2g.apps.googleusercontent.com">
+</head>
+<body>
+<h1>Ingresa Tus Datos
+</h1>
+<form name="login">
+    <table width="200" border="0">
+        <tr>
+            <th scope="row"><h2>Usuario</h2></th>
+            <td><span class="cnt">
+           <input name="usuario" type="text" class="Input" value="test12@gmail.com" size="20" />
+         </span></td>
+        </tr>
+        <tr>
+            <th height="33" scope="row"><h2>Clave</h2></th>
+            <td><span class="cnt">
+           <input name="password" type="password" class="Input" value="123456" size="20" />
+         </span></td>
+            <td><span class="cnt">
+           <input value="Entrar" target="_parent" onclick="Login()" type="button" class="boton"/>
+         </span></td>
+        </tr>
+        <tr>
+            <th scope="row"><input type="reset" name="Borrar" id="Borrar" value="Reset" class="boton" /></th>
+        </tr>
+        <tr>
+            <th scope="row">O ingresa con tu cuenta de Google:</th> <th scope="row"> <div class="g-signin2" data-onsuccess="onSignIn"></div></th>
+        </tr>
+    </table>
+</form>
+
+<script>
+    function onSignIn(googleUser) {
+        var profile = googleUser.getBasicProfile();
+        console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+        console.log('Name: ' + profile.getName());
+        console.log('Image URL: ' + profile.getImageUrl());
+        console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+
+        var id_token = googleUser.getAuthResponse().id_token;
+        console.log(id_token)
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'http://localhost:3000/google');
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onload = function() {
+            console.log('Signed in as: ' + xhr.responseText);
+        };
+        xhr.send('idtoken=' + id_token);
+    }
+</script>
+<script>
+    function Login() {
+        var usuario=document.login.usuario.value;
+        var password=document.login.password.value;
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'http://localhost:3000/login');
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onload = function() {
+            console.log('Signed in as: ' + xhr.responseText);
+            window.location="home.html";
+            document.response.value = xhr.responseText
+        };
+        xhr.send('user=' + usuario, 'password='+password);
+    }
+</script>
+</body>
+<footer class="footer">
+    <p>&copy; 2020 Esteban Campana</p>
+</footer>
+</html>
