@@ -1,4 +1,5 @@
 const moongoose = require('mongoose')
+const timestamps = require('mongoose-timestamp')
 const uniqueValidator = require('mongoose-unique-validator');
 const constant = require('../commons/constant')
 
@@ -30,5 +31,10 @@ UsuarioSchema.methods.toJSON = function () {
     delete userObject.password
     return userObject
 }
+
+UsuarioSchema.plugin(timestamps, {
+    createdAt: 'createdAt',
+    updatedAt: 'modifiedAt'
+})
 
 module.exports = moongoose.model('Usuario', UsuarioSchema, 'users')
