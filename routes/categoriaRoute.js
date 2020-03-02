@@ -99,11 +99,19 @@ app.put('/categoria/:id', verifyToken, function (req, res) {
     let id = req.params.id
     let body = _.pick(req.body, [ 'descripcion', 'user' ])
 
-    Categoria.findOneAndUpdate(id, body, {new: true, runValidators: true, context: 'query'}, (err, categoriaDB) => {
+    Categoria.findByIdAndUpdate(id, body, {new: true, runValidators: true, context: 'query'}, (err, categoriaDB) => {
         if (err) {
             return res.status(400).json({
                 ok: false,
                 err
+            })
+        }
+        if (!categoriaDB) {
+            return res.status(400).json({
+                ok: false,
+                err: {
+                    message: 'No existe la categoria'
+                }
             })
         }
         return res.json({

@@ -71,11 +71,19 @@ app.put('/usuario/:id', [ verifyToken, verifyRole([ constant.usuario.role.USER_R
     let id = req.params.id
     let body = _.pick(req.body, [ 'name', 'email', 'avatar', 'role', 'status' ])
 
-    Usuario.findOneAndUpdate(id, body, {new: true, runValidators: true, context: 'query'}, (err, usuarioDB) => {
+    Usuario.findByIdAndUpdate(id, body, {new: true, runValidators: true, context: 'query'}, (err, usuarioDB) => {
         if (err) {
             return res.status(400).json({
                 ok: false,
                 err
+            })
+        }
+        if (!usuarioDB) {
+            return res.status(400).json({
+                ok: false,
+                err: {
+                    message: 'No existe el usuario'
+                }
             })
         }
         return res.json({

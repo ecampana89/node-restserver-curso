@@ -111,11 +111,23 @@ app.put('/producto/:id', verifyToken, function (req, res) {
     let id = req.params.id
     let body = _.pick(req.body, [ 'name', 'descripcion', 'user', 'precioUni', 'disponible', 'category' ])
 
-    Producto.findOneAndUpdate(id, body, {new: true, runValidators: true, context: 'query'}, (err, productoDB) => {
+    Producto.findByIdAndUpdate(id, body, {
+        new: true,
+        runValidators: true,
+        context: 'query'
+    }, (err, productoDB) => {
         if (err) {
-            return res.status(400).json({
+            return res.status(500).json({
                 ok: false,
                 err
+            })
+        }
+        if (!productoDB) {
+            return res.status(400).json({
+                ok: false,
+                err: {
+                    message: 'No existe el producto'
+                }
             })
         }
         return res.json({
