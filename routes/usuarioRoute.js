@@ -27,7 +27,7 @@ app.get('/usuario', [ verifyToken, verifyRole([ constant.usuario.role.ADMIN_ROLE
                     err
                 })
             }
-            Usuario.count(filters, (err, conteo) => {
+            Usuario.countDocuments(filters, (err, conteo) => {
                 if (err) {
                     return res.status(400).json({
                         ok: false,

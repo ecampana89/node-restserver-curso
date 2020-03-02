@@ -26,7 +26,7 @@ app.get('/categoria', verifyToken, (req, res) => {
                     err
                 })
             }
-            Categoria.count(filters, (err, conteo) => {
+            Categoria.countDocuments(filters, (err, conteo) => {
                 if (err) {
                     return res.status(400).json({
                         ok: false,

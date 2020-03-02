@@ -15,11 +15,13 @@
     "body-parser": "^1.19.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "express-fileupload": "^1.1.6",
     "google-auth-library": "^5.10.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.8.11",
     "mongoose-timestamp": "^0.6.0",
     "mongoose-unique-validator": "^2.0.3",
-    "underscore": "^1.9.2"
+    "underscore": "^1.9.2",
+    "uniqid": "^5.2.0"
   }
 }

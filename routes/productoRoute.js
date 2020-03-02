@@ -34,7 +34,7 @@ app.get('/producto', verifyToken, (req, res) => {
                     err
                 })
             }
-            Producto.count(filters, (err, conteo) => {
+            Producto.countDocuments(filters, (err, conteo) => {
                 if (err) {
                     return res.status(400).json({
                         ok: false,
@@ -206,7 +206,7 @@ app.get('/producto/buscar/:termino', verifyToken, (req, res) => {
                     err
                 })
             }
-            Producto.count(filters, (err, conteo) => {
+            Producto.countDocuments(filters, (err, conteo) => {
                 if (err) {
                     return res.status(400).json({
                         ok: false,

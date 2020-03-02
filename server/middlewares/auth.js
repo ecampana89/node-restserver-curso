@@ -36,7 +36,33 @@ let verifyRole = allowedRoles => {
         next()
     }
 }
+
+//Verificar token para imagen
+let verifyTokenImg = (req, res, next) => {
+    let token = req.query.token
+    if (token) {
+        jwt.verify(token, config.auth.secret, (err, user) => {
+            if (err || !user) {
+                return res.status(401).json({
+                    ok: false,
+                    code: 5101,
+                    message: 'Invalid token'
+                })
+            }
+            // Pass user to req
+            req.user = user
+            next()
+        })
+    } else {
+        return res.status(401).json({
+            ok: false,
+            code: 5101,
+            message: 'Invalid token'
+        })
+    }
+}
 module.exports = {
     verifyToken,
-    verifyRole
+    verifyRole,
+    verifyTokenImg
 }
